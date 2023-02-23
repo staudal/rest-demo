@@ -5,9 +5,9 @@
  */
 package facades;
 
-import dtos.RenameMeDTO;
-import entities.RenameMe;
 import javax.persistence.EntityManagerFactory;
+
+import exceptions.MissingInputException;
 import utils.EMF_Creator;
 
 /**
@@ -15,15 +15,14 @@ import utils.EMF_Creator;
  * @author tha
  */
 public class Populator {
-    public static void populate(){
+    public static void populate() throws MissingInputException {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-        FacadeExample fe = FacadeExample.getFacadeExample(emf);
-        fe.create(new RenameMeDTO(new RenameMe("First 1", "Last 1")));
-        fe.create(new RenameMeDTO(new RenameMe("First 2", "Last 2")));
-        fe.create(new RenameMeDTO(new RenameMe("First 3", "Last 3")));
+        PersonFacade fe = PersonFacade.getPersonFacade(emf);
+        fe.addPerson("Kurt", "Wonnegut", "12345678");
+        fe.addPerson("Hanne", "Olsen", "12345678");
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MissingInputException {
         populate();
     }
 }
