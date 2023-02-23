@@ -61,20 +61,20 @@ public class PersonFacadeTest {
 
     @Test
     public void testGetPerson() throws Exception {
-        assertEquals("Kurt", facade.getPerson(1).getFirstName(), "Expects Kurt");
+        assertEquals("12345678", facade.getPerson(facade.getAllPersons().get(0).getId()).getPhone(), "Expects 12345678");
     }
 
     @Test
     public void testDeletePerson() throws Exception {
-        facade.deletePerson(1);
+        facade.deletePerson(facade.getAllPersons().get(0).getId());
         assertEquals(1, facade.getAllPersons().size(), "Expects one row in the database");
     }
 
     @Test
     public void testEditPerson() throws Exception {
-        PersonDTO personDTO = facade.getPerson(1);
+        PersonDTO personDTO = facade.getPerson(facade.getAllPersons().get(0).getId());
         personDTO.setFirstName("Jakob");
         facade.editPerson(personDTO);
-        assertEquals("Jakob", facade.getPerson(1).getFirstName(), "Expects Jakob");
+        assertEquals("Jakob", facade.getPerson(facade.getAllPersons().get(0).getId()).getFirstName(), "Expects Jakob");
     }
 }
