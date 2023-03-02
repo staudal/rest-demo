@@ -55,7 +55,12 @@ public class PersonResource {
         System.out.println("input = " + input);
         PersonDTO personDTO = GSON.fromJson(input, PersonDTO.class);
         FACADE.addPerson(personDTO.getFirstName(), personDTO.getLastName(), personDTO.getPhone());
-        return Response.ok().entity(personDTO).build();
+        return Response.status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access.Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .entity("{\"msg\":\"Person added\"}").build();
     }
 
     // Delete person from DB
