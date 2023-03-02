@@ -1,7 +1,5 @@
 package rest;
 
-import filters.CorsFilter;
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
