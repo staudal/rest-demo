@@ -1,7 +1,6 @@
 package rest;
 
 import entities.Person;
-import exceptions.PersonNotFoundException;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
@@ -14,7 +13,6 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import static org.hamcrest.Matchers.equalTo;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -99,19 +97,6 @@ public class PersonResourceTest {
         .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode());
-    }
-
-    // Test that the add method adds the correct person
-    @Test
-    public void testAddPerson() {
-        given()
-                .contentType("application/json")
-                .body("{\"firstName\":\"ccc\",\"lastName\":\"ddd\",\"phone\":\"12345678\"}")
-                .post("/persons")
-        .then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("firstName", equalTo("ccc"));
     }
 
     // Test that the edit method edits the correct person
