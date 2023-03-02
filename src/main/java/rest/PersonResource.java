@@ -38,8 +38,13 @@ public class PersonResource {
     @GET
     @Path("/all")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getAllPersons() {
-        return GSON.toJson(FACADE.getAllPersons());
+    public Response getAllPersons() {
+        return Response.status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access.Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .entity(FACADE.getAllPersons()).build();
     }
 
     // Add person to DB
