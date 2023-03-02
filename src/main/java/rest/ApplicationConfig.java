@@ -1,10 +1,15 @@
 package rest;
 
+import filters.CorsFilter;
+
+import java.io.IOException;
+import java.util.Collections;
 import java.util.Set;
+import javax.servlet.*;
 import javax.ws.rs.core.Application;
 
 @javax.ws.rs.ApplicationPath("api")
-public class ApplicationConfig extends Application {
+public class ApplicationConfig extends Application implements Filter {
 
     @Override
     public Set<Class<?>> getClasses() {
@@ -26,5 +31,22 @@ public class ApplicationConfig extends Application {
         resources.add(org.glassfish.jersey.server.wadl.internal.WadlResource.class);
         resources.add(PersonResource.class);
     }
-    
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // Register the CorsFilter
+        FilterRegistration.Dynamic corsFilter = filterConfig.getServletContext().addFilter("CorsFilter", CorsFilter.class);
+        corsFilter.setInitParameters(Collections.singletonMap("cors.support.credentials", "true"));
+        corsFilter.addMappingForUrlPatterns(null, false, "/*");
+    }
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
 }
